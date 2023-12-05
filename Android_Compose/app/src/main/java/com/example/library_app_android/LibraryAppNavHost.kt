@@ -51,7 +51,10 @@ fun LibraryAppNavHost() {
                 onLogout = {
                     Log.d("LibraryAppNavHost", "logout")
                     libraryAppViewModel.logout()
-
+                    Api.tokenInterceptor.token = null
+                    navController.navigate(authRoute) {
+                        popUpTo(0)
+                    }
                 }
             )
         }

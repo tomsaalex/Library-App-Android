@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.library_app_android.R
@@ -46,9 +48,16 @@ fun BookScreen(bookId: String?, onClose: () -> Unit) {
     var pageCount by rememberSaveable { mutableIntStateOf(bookUiState.book.pageCount) }
     var publicationDate by rememberSaveable { mutableStateOf(bookUiState.book.publicationDate) }
     var hasHardcover by rememberSaveable { mutableStateOf(bookUiState.book.hasHardcover) }
-    var tempPublicationDate by rememberSaveable { mutableStateOf(bookUiState.tempPublicationDate) }
+    var tempPublicationDate by rememberSaveable { mutableStateOf(bookUiState.book.publicationDate.format(
+        DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    )) }
 
     Log.d("BookScreen", "recompose, text = $title")
+
+    LaunchedEffect(publicationDate) {
+        tempPublicationDate = bookUiState.book.publicationDate.format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    }
 
     LaunchedEffect(bookUiState.submitResult) {
         Log.d("BookScreen", "Submit = ${bookUiState.submitResult}")
@@ -69,15 +78,9 @@ fun BookScreen(bookId: String?, onClose: () -> Unit) {
             title = bookUiState.book.title
             pageCount = bookUiState.book.pageCount
             hasHardcover = bookUiState.book.hasHardcover
+            publicationDate = bookUiState.book.publicationDate
 
-            try {
-                publicationDate = LocalDate.parse(bookUiState.tempPublicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-
-
-                bookFieldsInitialized = true
-            } catch (dtpe: DateTimeParseException) {
-                return@LaunchedEffect
-            }
+            bookFieldsInitialized = true
         }
     }
 
@@ -87,8 +90,25 @@ fun BookScreen(bookId: String?, onClose: () -> Unit) {
                 title = { Text(text = stringResource(id = R.string.item)) },
                 actions = {
                     Button(onClick = {
-                        Log.d("BookScreen", "save book fields = $title")
-                        bookViewModel.saveOrUpdateBook(title, pageCount, hasHardcover, publicationDate)
+
+                        try {
+                            Log.d("BookScreen", "attempt save")
+                            Log.d("BookScreen", "publicationDate ${tempPublicationDate}")
+                            publicationDate = LocalDate.parse(tempPublicationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                            if(title.isEmpty() || title.isBlank())
+                                throw Exception("Invalid title")
+
+                            Log.d("BookScreen", "save book fields = $title")
+                            bookViewModel.saveOrUpdateBook(title, pageCount, hasHardcover, publicationDate)
+
+                        } catch (dtpe: DateTimeParseException) {
+                            Log.e("BookScreen", "Error parsing input date: ${dtpe.message}")
+                            return@Button
+                        } catch (e: Exception) {
+                            Log.e("BookScreen", "Couldn't add item. Invalid data: ${e.message}")
+                            return@Button
+                        }
+
                     }) { Text("Save") }
                 }
             )
@@ -126,10 +146,13 @@ fun BookScreen(bookId: String?, onClose: () -> Unit) {
                     Row {
                         TextField(
                             value = pageCount.toString(),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { value ->
                                 val pageCountString = (value.filter { it.isDigit() })
                                 if(pageCountString.isNotEmpty())
                                     pageCount = pageCountString.toInt()
+                                else
+                                    pageCount = 0
                             },
                             label = { Text("Page Count") },
                             modifier = Modifier.fillMaxWidth()

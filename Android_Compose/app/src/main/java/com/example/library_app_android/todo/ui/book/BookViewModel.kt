@@ -20,7 +20,6 @@ import java.time.LocalDate
 data class BookUiState(
     val bookId: String? = null,
     val book: Book = Book(),
-    val tempPublicationDate: String = "",
     var loadResult: Result<Book>? = null,
     var submitResult: Result<Book>? = null
 )
@@ -47,6 +46,8 @@ class BookViewModel(private val bookId: String?, private val bookRepository: Boo
                 }
                 val book = books.find { it._id == bookId } ?: Book()
                 uiState = uiState.copy(book = book, loadResult = Result.Success(book))
+
+                Log.d(TAG, "uiState ${uiState.book}")
             }
         }
     }

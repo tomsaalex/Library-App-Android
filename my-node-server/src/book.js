@@ -69,10 +69,11 @@ bookRouter.get('/id', async (ctx) => {
 });
 
 const createBook = async (ctx, book, response) => {
-
     try{
         const userId = ctx.state.user._id;
         book.userId = userId;
+        if(book._id.length === 0) delete book._id;
+
         // book.publicationDate = new Date(book.publicationDate);
         response.body = await bookStore.insert(book);
         book = response.body;

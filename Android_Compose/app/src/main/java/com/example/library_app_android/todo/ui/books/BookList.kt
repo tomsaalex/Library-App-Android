@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.library_app_android.todo.data.Book
+import java.time.format.DateTimeFormatter
 
 typealias OnBookFn = (id: String?) -> Unit
 
@@ -34,7 +35,8 @@ fun BookList(bookList: List<Book>, onBookClick: OnBookFn, modifier: Modifier) {
 @Composable
 fun BookDetail(book: Book, onBookClick: OnBookFn) {
     Row {
-        ClickableText(text = AnnotatedString(book.title),
+        ClickableText(text = AnnotatedString(book.title + " | " + book.pageCount + " | " + book.publicationDate.format(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " + if(book.hasHardcover) "Hardcover" else "Paperback"),
             style = TextStyle(
                 fontSize = 24.sp
             ), onClick = { onBookClick(book._id) }
