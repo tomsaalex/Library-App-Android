@@ -24,7 +24,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
+        vectorDrawables { 
             useSupportLibrary = true
         }
     }
@@ -95,5 +95,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")// TODO: I added this, maybe it breaks something
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

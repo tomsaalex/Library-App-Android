@@ -1,5 +1,4 @@
-{"_id":"V56J2fplM2Jy2WaH","hasHardcover":false,"pageCount":3,"publicationDate":{"day":11,"month":11,"year":2002},"title":"a","userId":"vI1GMkzBza5i82zj"}
-{"hasHardcover":false,"pageCount":20,"publicationDate":{"day":6,"month":12,"year":2023},"title":"b","userId":"vI1GMkzBza5i82zj","_id":"YyDMgwbNKF5acGpx"}
-{"_id":"YyDMgwbNKF5acGpx","hasHardcover":true,"pageCount":20,"publicationDate":{"day":17,"month":12,"year":2023},"title":"b","userId":"vI1GMkzBza5i82zj"}
-{"_id":"V56J2fplM2Jy2WaH","hasHardcover":true,"pageCount":4,"publicationDate":{"day":11,"month":11,"year":2003},"title":"c","userId":"vI1GMkzBza5i82zj"}
 {"_id":"V56J2fplM2Jy2WaH","hasHardcover":false,"pageCount":4,"publicationDate":{"day":11,"month":11,"year":2003},"title":"c","userId":"vI1GMkzBza5i82zj"}
+{"_id":"YyDMgwbNKF5acGpx","hasHardcover":true,"pageCount":20,"publicationDate":{"day":17,"month":12,"year":2023},"title":"b","userId":"vI1GMkzBza5i82zj"}
+{"_id":"V56J2fplM2Jy2WaH","hasHardcover":false,"pageCount":9,"publicationDate":{"day":11,"month":11,"year":2003},"title":"c","userId":"vI1GMkzBza5i82zj"}
+{"hasHardcover":true,"pageCount":40,"publicationDate":{"day":15,"month":12,"year":2023},"title":"z","userId":"vI1GMkzBza5i82zj","_id":"sGUJNF3cbZdFvN8z"}
