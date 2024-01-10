@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Api {
-    private val url = "172.30.117.169:3000"
+    private val url = "172.30.117.133:3000"
     private val httpUrl = "http://$url/"
     val wsUrl = "ws://$url"
 

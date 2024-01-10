@@ -81,6 +81,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     // Data store
@@ -93,6 +94,16 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    // Testing Fragments in Isolation
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
+    implementation("com.google.maps.android:maps-compose:4.3.0")
+
+    implementation("com.google.accompanist:accompanist-permissions:0.23.1")
+
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")

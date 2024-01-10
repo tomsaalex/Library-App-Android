@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "457608466bf6a94cfb6d72c8a62ee6c9",
+    "version": 2,
+    "identityHash": "0bc8999431502c1b5add339241238973",
     "entities": [
       {
         "tableName": "books",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `title` TEXT NOT NULL, `pageCount` INTEGER NOT NULL, `publicationDate` TEXT NOT NULL, `hasHardcover` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, PRIMARY KEY(`_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `title` TEXT NOT NULL, `pageCount` INTEGER NOT NULL, `publicationDate` TEXT NOT NULL, `hasHardcover` INTEGER NOT NULL, `latitude` REAL, `longitude` REAL, `persistedOnServer` INTEGER NOT NULL, PRIMARY KEY(`_id`))",
         "fields": [
           {
             "fieldPath": "_id",
@@ -42,12 +42,18 @@
             "fieldPath": "latitude",
             "columnName": "latitude",
             "affinity": "REAL",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "longitude",
             "columnName": "longitude",
             "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "persistedOnServer",
+            "columnName": "persistedOnServer",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -64,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '457608466bf6a94cfb6d72c8a62ee6c9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0bc8999431502c1b5add339241238973')"
     ]
   }
 }

@@ -10,5 +10,8 @@ data class Book (
     val title: String = "",
     val pageCount: Int = 0,
     val publicationDate: LocalDate = LocalDate.now(),
-    val hasHardcover: Boolean = false
+    val hasHardcover: Boolean = false,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    var persistedOnServer: Boolean = false
 )

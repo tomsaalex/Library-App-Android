@@ -8,10 +8,10 @@ import com.example.library_app_android.todo.data.remote.BookEvent
 import com.example.library_app_android.todo.data.remote.BookService
 import com.example.library_app_android.todo.data.remote.BookWsClient
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class BookRepository(
@@ -20,9 +20,11 @@ class BookRepository(
     private val bookDao: BookDao
 ) {
     val bookStream by lazy { bookDao.getAll() }
+    private var localId: Int
 
     init {
         Log.d(TAG, "init")
+        localId = -1
     }
 
     private fun getBearerToken() = "Bearer ${Api.tokenInterceptor.token}"
@@ -56,6 +58,10 @@ class BookRepository(
         }
     }
 
+    suspend fun getBookById(id: String): Book {
+        return bookDao.getBook(id)
+    }
+
     suspend fun closeWsClient() {
         Log.d(TAG, "closeWsClient")
         withContext(Dispatchers.IO) {
@@ -78,7 +84,7 @@ class BookRepository(
         awaitClose { bookWsClient.closeSocket() }
     }
 
-    suspend fun update(book: Book): Book {
+    suspend fun updateOnline(book: Book): Book {
         Log.d(TAG, "update $book...")
         val updatedBook = bookService.update(bookId = book._id, book = book, authorization = getBearerToken())
         Log.d(TAG, "update $book succeeded")
@@ -86,11 +92,28 @@ class BookRepository(
         return updatedBook
     }
 
-    suspend fun save(book: Book): Book {
+    suspend fun updateOffline(book: Book): Book {
+        Log.d(TAG, "update offline $book...")
+        handleBookUpdated(book)
+        return book
+    }
+
+    suspend fun saveOnline(book: Book): Book {
         Log.d(TAG, "save $book")
-        val createdBook = bookService.create(book = book, authorization = getBearerToken())
+
+        val createdBook = bookService.create(book = book.copy(persistedOnServer = true), authorization = getBearerToken())
         Log.d(TAG, "save $book succeeded")
+
         handleBookCreated(createdBook)
+        return createdBook
+    }
+
+    suspend fun saveOffline(book: Book): Book {
+        Log.d(TAG, "save offline $book")
+        val createdBook = book.copy(_id = localId.toString())
+        localId -= 1
+        handleBookCreated(createdBook)
+
         return createdBook
     }
 
@@ -111,6 +134,10 @@ class BookRepository(
 
     suspend fun deleteAll() {
         bookDao.deleteAll()
+    }
+
+    suspend fun deleteOneLocally(bookId: String) {
+        bookDao.deleteById(bookId)
     }
 
     fun setToken(token: String) {

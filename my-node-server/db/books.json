@@ -1,4 +1,5 @@
-{"_id":"V56J2fplM2Jy2WaH","hasHardcover":false,"pageCount":4,"publicationDate":{"day":11,"month":11,"year":2003},"title":"c","userId":"vI1GMkzBza5i82zj"}
-{"_id":"YyDMgwbNKF5acGpx","hasHardcover":true,"pageCount":20,"publicationDate":{"day":17,"month":12,"year":2023},"title":"b","userId":"vI1GMkzBza5i82zj"}
-{"_id":"V56J2fplM2Jy2WaH","hasHardcover":false,"pageCount":9,"publicationDate":{"day":11,"month":11,"year":2003},"title":"c","userId":"vI1GMkzBza5i82zj"}
-{"hasHardcover":true,"pageCount":40,"publicationDate":{"day":15,"month":12,"year":2023},"title":"z","userId":"vI1GMkzBza5i82zj","_id":"sGUJNF3cbZdFvN8z"}
+{"_id":"DZr60yeCexW2ZYIR","hasHardcover":false,"latitude":39.905909611737904,"longitude":-116.74458872526884,"pageCount":20,"persistedOnServer":true,"publicationDate":{"day":19,"month":12,"year":2023},"title":"b","userId":"vI1GMkzBza5i82zj"}
+{"hasHardcover":false,"latitude":37.4226711,"longitude":-122.0849872,"pageCount":10,"persistedOnServer":true,"publicationDate":{"day":19,"month":12,"year":2023},"title":"a","userId":"vI1GMkzBza5i82zj","_id":"Eh6QL241tl9W0vtG"}
+{"_id":"HbZDTcYK0bEyxW37","hasHardcover":true,"latitude":39.05315954608876,"longitude":-111.605085991323,"pageCount":10,"persistedOnServer":true,"publicationDate":{"day":20,"month":12,"year":2023},"title":"offline","userId":"vI1GMkzBza5i82zj"}
+{"_id":"nKQg7LjAvGAgM6Ng","hasHardcover":false,"latitude":40.372994793215746,"longitude":-117.02918719500303,"pageCount":5,"persistedOnServer":true,"publicationDate":{"day":19,"month":12,"year":2123},"title":"pppp","userId":"vI1GMkzBza5i82zj"}
+{"_id":"rqyNV9bX6A5WJNOi","hasHardcover":true,"latitude":44.61666997368023,"longitude":-120.46110447496174,"pageCount":100,"persistedOnServer":true,"publicationDate":{"day":11,"month":12,"year":2023},"title":"off","userId":"vI1GMkzBza5i82zj"}
